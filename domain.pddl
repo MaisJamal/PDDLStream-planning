@@ -22,7 +22,7 @@
       	(Collision ?ego ?obstacle ?pose)
         (AtGoal ?ego ?pose ?goal)
     )
-    (:action keep lane
+    (:action keeplane
     	:parameters (?ego ?pose ?pose2 ?lane ?control)
     	:precondition
     		(and (OnLane ?ego ?lane)
