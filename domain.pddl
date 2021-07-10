@@ -34,11 +34,11 @@
     			 (increase (total-cost) 1))
     )
     (:action switchleft
-    	:parameters (?ego ?pose1 ?pose2 ?lane1 ?lane2 ?control)
+    	:parameters (?ego ?pose1 ?pose2 ?t ?lane1 ?lane2 ?control)
     	:precondition
     		(and (OnLane ?ego ?lane1)(AtPose ?ego ?pose1) (NeighborLeftLane ?lane2 ?lane1)
             (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?control))
-            (Motion ?ego ?pose1 ?pose2 ?control)
+            (Motion ?ego ?pose1 ?t ?pose2 ?control)
     	:effect
     		(and (AtPose ?ego ?pose2)(OnLane ?ego ?lane2)
     			 (not (AtPose ?ego ?pose1))
@@ -46,11 +46,11 @@
     			 (increase (total-cost) 1))
     )
     (:action switchright
-    	:parameters (?ego ?pose1 ?pose2 ?lane1 ?lane2 ?control)
+    	:parameters (?ego ?pose1 ?pose2 ?t ?lane1 ?lane2 ?control)
     	:precondition
     		(and (OnLane ?ego ?lane1)(AtPose ?ego ?pose1) (NeighborRightLane ?lane2 ?lane1)
             (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?control))
-            (Motion ?ego ?pose1 ?pose2 ?control)
+            (Motion ?ego ?pose1 ?t ?pose2 ?control)
     	:effect
     		(and (AtPose ?ego ?pose2)(OnLane ?ego ?lane2)
     			 (not (AtPose ?ego ?pose1))
