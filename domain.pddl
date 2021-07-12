@@ -12,7 +12,7 @@
         (IsTraj ?traj)
         
         ; Fluent predicates (predicates that change over time, which describes the state of the sytem)
-    	(AtPose ?ego ?pose)
+    	(AtPose ?object ?pose)
         (OnLane ?ego ?lane)
         (IsClear ?pose)
          
@@ -21,7 +21,7 @@
     	(Unsafe ?traj)
 
         ; External predicates (evaluated by external boolean functions)
-      	(Collision ?ego ?obstacle ?pose)
+      	(Collision ?traj ?obstacle ?pose)
         (AtGoal ?ego ?pose ?goal)
     )
     (:action keeplane
@@ -58,4 +58,7 @@
     			 (not (AtPose ?ego ?pose1))
     			 (not (OnLane ?ego ?lane1))
     			 (increase (total-cost) 1))
+    )
+    (:derived (Unsafe ?traj)
+        (exists (?obstacle ?pose) (and (Collision ?traj ?obstacle ?pose) (AtPose ?obstacle ?pose)))
     )
