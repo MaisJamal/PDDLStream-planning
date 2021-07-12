@@ -24,6 +24,16 @@
       	(Collision ?traj ?obstacle ?pose)
         (AtGoal ?ego ?pose ?goal)
     )
+    
+    (:action detect
+        :parameters(?obstacle ?priorbelief ?observ ?postbelief)
+        :precondition
+            (and (BeliefUpdate ?obstacle ?priorbelief ?observ ?postbelief)(AtPose ?obstacle ?priorbelief) 
+                 (not(BOccluded ?obstacle ?priorbelief ?observ)))
+        :effect
+            (and (AtPose ?obstacle ?postbelief) (not(AtPose ?obstacle ?postbelief))(incr(total-cost) (ObsCost ?obstacle ?priorbelief ?observ))))
+    
+    
     (:action keeplane
     	:parameters (?ego ?pose ?pose2 ?lane ?traj)
     	:precondition
@@ -35,12 +45,13 @@
     			 (not (AtPose ?ego ?pose))
     			 (increase (total-cost) 1))
     )
+    
     (:action switchleft
     	:parameters (?ego ?pose1 ?pose2 ?traj ?lane1 ?lane2)
     	:precondition
     		(and (OnLane ?ego ?lane1)(AtPose ?ego ?pose1) (NeighborLeftLane ?lane2 ?lane1)
-            (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?traj))
-            (Motion ?ego ?pose1 ?pose2 ?traj)
+            (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?traj)
+            (Motion ?ego ?pose1 ?pose2 ?traj))
     	:effect
     		(and (AtPose ?ego ?pose2)(OnLane ?ego ?lane2)
     			 (not (AtPose ?ego ?pose1))
@@ -51,8 +62,8 @@
     	:parameters (?ego ?pose1 ?pose2 ?traj ?lane1 ?lane2)
     	:precondition
     		(and (OnLane ?ego ?lane1)(AtPose ?ego ?pose1) (NeighborRightLane ?lane2 ?lane1)
-            (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?traj))
-            (Motion ?ego ?pose1 ?pose2 ?traj)
+            (PoseOnLane ?pose1 ?lane1)(IsClear ?pose2)(not (Unsafe ?traj)
+            (Motion ?ego ?pose1 ?pose2 ?traj))
     	:effect
     		(and (AtPose ?ego ?pose2)(OnLane ?ego ?lane2)
     			 (not (AtPose ?ego ?pose1))
