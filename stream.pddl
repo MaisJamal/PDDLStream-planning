@@ -9,6 +9,12 @@
 		:certified (and (Motion ?ego ?pose ?pose2 ?traj) (IsTraj ?traj))
 	)
 	
+	(:stream update-belief
+	        :inputs (?obstacle ?priorbelief ?observ)
+		:domain (and (AtPose ?obstacle ?priorbelief) (Observ ?obstacle ?observ))
+		:outputs (?postbelief)
+		:certified (and (AtPose ?obstacle ?postbelief)(BeliefUpdate ?obstacle ?priorbelief ?observ ?postbelief)))
+	
 	(:stream test-cfree
                 :inputs (?ego ?pose1 ?obstacle ?pose2)
                 :domain (and (AtPose ?ego ?pose1) (Pose ?obstacle ?pose2))
