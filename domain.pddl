@@ -31,7 +31,7 @@
             (and (BeliefUpdate ?obstacle ?priorbelief ?observ ?postbelief)(AtPose ?obstacle ?priorbelief) 
                  (not(BOccluded ?obstacle ?priorbelief ?observ)))
         :effect
-            (and (AtPose ?obstacle ?postbelief) (not(AtPose ?obstacle ?postbelief))(incr(total-cost) (ObsCost ?obstacle ?priorbelief ?observ))))
+            (and (AtPose ?obstacle ?postbelief) (not(AtPose ?obstacle ?postbelief))(increase (total-cost) (ObsCost ?obstacle ?priorbelief ?observ))))
     
     
     (:action keeplane
